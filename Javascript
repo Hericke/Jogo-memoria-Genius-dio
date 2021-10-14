@@ -1,0 +1,107 @@
+deixe  ordem  =  [ ] ;
+let  clickedOrder  =  [ ] ;
+deixe  pontuação  =  0 ;
+
+// 0 - verde
+// 1 - vermelho
+// 2 - amarelo
+// 3 - azul
+
+const  blue  =  document . querySelector ( '.blue' ) ;
+const  red  =  document . querySelector ( '.red' ) ;
+const  green  =  document . querySelector ( '.green' ) ;
+const  amarelo  =  documento . querySelector ( ' .yellow ' ) ;
+
+// cria ordem aletoria de cores
+deixe  shuffleOrder  =  ( )  =>  {
+    deixe  colorOrder  =  Math . chão ( matemática . aleatório ( )  *  4 ) ;
+    pedido [ pedido . comprimento ]  =  colorOrder ;
+    clickedOrder  =  [ ] ;
+
+    para ( deixe  eu  em  ordem )  {
+        let  elementColor  =  createColorElement ( order [ i ] ) ;
+        lightColor ( elementColor ,  Number ( i )  +  1 ) ;
+    }
+}
+
+// acende a proxima cor
+deixe  lightColor  =  ( elemento ,  número )  =>  {
+    número  =  número  *  500 ;
+    setTimeout ( ( )  =>  {
+        elemento . classList . adicionar ( 'selecionado' ) ;
+    } ,  número  -  250 ) ;
+    setTimeout ( ( )  =>  {
+        elemento . classList . remover ( 'selecionado' ) ;
+    } ) ;
+}
+
+// checa se os botoes clicados são os mesmos da ordem gerada no jogo
+deixe  checkOrder  =  ( )  =>  {
+    para ( deixe-  i  em  clickedOrder )  {
+        if ( clickedOrder [ i ]  ! =  pedido [ i ] )  {
+            gameOver ( ) ;
+            pausa ;
+        }
+    }
+    if ( clickedOrder . length  ==  order . length )  {
+        alert ( `Pontuação: $ { score } \ nVocê acertou! Iniciando próximo nível!` ) ;
+        nextLevel ( ) ;
+    }
+}
+
+// funcao para o clique do usuario
+deixe  clicar  =  ( cor )  =>  {
+    clickedOrder [ clickedOrder . comprimento ]  =  cor ;
+    createColorElement ( color ) . classList . adicionar ( 'selecionado' ) ;
+
+    setTimeout ( ( )  =>  {
+        createColorElement ( color ) . classList . remover ( 'selecionado' ) ;
+        checkOrder ( ) ;
+    } , 250 ) ;
+}
+
+// funcao que retorna a cor
+deixe  createColorElement  =  ( color )  =>  {
+    if ( cor  ==  0 )  {
+        retornar  verde ;
+    }  else  if ( color  ==  1 )  {
+        retornar  vermelho ;
+    }  else  if  ( color  ==  2 )  {
+        retornar  amarelo ;
+    }  else  if  ( color  ==  3 )  {
+        return  blue ;
+    }
+}
+
+// funcao para proximo nivel do jogo
+deixe  nextLevel  =  ( )  =>  {
+    pontuação ++ ;
+    shuffleOrder ( ) ;
+}
+
+// funcao para game over
+deixe  gameOver  =  ( )  =>  {
+    alerta ( `Pontuação: $ { score } ! \ nVocê perdeu o jogo! \ nClique em OK para iniciar um novo jogo` ) ;
+    pedido  =  [ ] ;
+    clickedOrder  =  [ ] ;
+
+    playGame ( ) ;
+}
+
+// funcao de inicio do jogo
+deixe  playGame  =  ( )  =>  {
+    alert ( 'Bem vindo ao Gênesis! Iniciando novo jogo!' ) ;
+    pontuação  =  0 ;
+
+    nextLevel ( ) ;
+}
+
+// eventos de clique para as cores
+verde . onclick  =  ( )  =>  clique ( 0 ) ;
+vermelho . onclick  =  ( )  =>  clique ( 1 ) ;
+amarelo . onclick  =  ( )  =>  clique ( 2 ) ;
+azul . onclick  =  ( )  =>  clique ( 3 ) ;
+
+
+// inicio do jogo
+playGame ( ) ;
